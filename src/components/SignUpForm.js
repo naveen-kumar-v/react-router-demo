@@ -8,9 +8,11 @@ export default function SignUpForm({ setIsLoggedIn }) {
 
   const Navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ firstname: "", lastname: "", email: "", password: "", confirmpwd: "" })
+  const [formData, setFormData] = useState({ accountType: '', firstname: "", lastname: "", email: "", password: "", confirmpwd: "" })
 
   const [showPassword, setShowPassword] = useState(false)
+  const [showCnfPassword, setShowCnfPassword] = useState(false)
+  const [accountType, setAccountType] = useState('student')
 
   const handleChange = (e) => {
     setFormData((prevData) => (
@@ -21,6 +23,20 @@ export default function SignUpForm({ setIsLoggedIn }) {
     ))
   }
 
+  const studAcc = {
+    backgroundColor: '#000',
+    color: 'white',
+    borderRadius: '20px',
+    border: 'none'
+  }
+
+  const instAcc = {
+    backgroundColor: '#282e35',
+    color: 'white',
+    borderRadius: '20px',
+    opacity: '0.5',
+    border: 'none'
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -31,15 +47,27 @@ export default function SignUpForm({ setIsLoggedIn }) {
     setIsLoggedIn(true)
     Navigate('/dashboard')
     toast.success("Account created")
-    const accountData = { ...formData };
+    const accountData = { ...formData, accountType };
     console.log(accountData)
   }
 
   return (
-    <div>
-      <div>
-        <button>Student</button>
-        <button>Instructor</button>
+    <div >
+      <div className='accTypeDiv'>
+        <button onClick={() => {
+          setAccountType('student')
+        }}
+          style={accountType === 'student' ? studAcc : instAcc}
+        >
+          Student
+        </button>
+        <button onClick={() => {
+          setAccountType('instructor')
+        }}
+          style={accountType !== 'student' ? studAcc : instAcc}
+        >
+          Instructor
+        </button>
       </div>
 
 
@@ -107,26 +135,26 @@ export default function SignUpForm({ setIsLoggedIn }) {
             </span>
           </div>
 
-          <div className=''>
+          <div className='confirm-pwd'>
             <label>Confirm password <sup>*</sup></label>
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showCnfPassword ? 'text' : 'password'}
               onChange={handleChange}
               name='confirmpwd'
               value={formData.confirmpwd}
               placeholder='Confirm Password'
               required
             />
-            <span className='pwdIcon' onClick={() => setShowPassword(prev => !prev)}>
+            <span className='pwdIcon' onClick={() => setShowCnfPassword(prev => !prev)}>
               {
-                showPassword ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible />)
+                showCnfPassword ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible />)
               }
             </span>
           </div>
 
         </div>
 
-        <button>Create Account</button>
+        <button className='createAccBtn'>Create Account</button>
 
       </form >
 

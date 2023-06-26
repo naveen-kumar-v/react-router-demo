@@ -29,6 +29,7 @@ export default function LoginForm({ setIsLoggedIn }) {
     setIsLoggedIn(true);
     toast.success('Logged In!')
     Navigate('/dashboard');
+    console.log(formData)
   }
 
 
@@ -49,7 +50,7 @@ export default function LoginForm({ setIsLoggedIn }) {
           </input>
         </div>
 
-        <div className="password">
+        <div className="password w-100">
           <label htmlFor="password">
             Enter Password<sup>*</sup>
           </label>

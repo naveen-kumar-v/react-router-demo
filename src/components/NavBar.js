@@ -7,9 +7,9 @@ export default function NavBar(props) {
   let setIsLoggedIn = props.setIsLoggedIn;
 
   return (
-    <div className='navBar'>
+    <div className='navBar navbar'>
       <div className="logo">
-        <Link to='/'>LOGO
+        <Link to='/'>STUDYHOLICS
         </Link>
       </div>
       <div className="center">
@@ -52,6 +52,8 @@ export default function NavBar(props) {
           </Link>
         }
       </div>
+
+
     </div>
   )
 }
